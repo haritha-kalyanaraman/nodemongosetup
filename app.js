@@ -5,12 +5,13 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+// New Code
 var mongo = require('mongodb');
 var monk = require('monk');
-var db = monk('username:password@localhost:27017/nodetest1');
+var db = monk('localhost:27017/nodetest1');
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
+
 
 var app = express();
 
@@ -32,10 +33,8 @@ app.use(function(req,res,next){
 });
 
 app.use('/', routes);
-app.use('/users', users);
 
-
-/// catch 404 and forward to error handler
+/// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
@@ -65,6 +64,5 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
-
 
 module.exports = app;
